@@ -41,7 +41,7 @@ func main() {
 	// find primes and check to see if all their rotations are also prime
 	circularprimes := 0
 	for i := range primes {
-		if i > 2 && primes[i] {
+		if i > 1 && primes[i] {
 			// this prime might be circular
 			candidate := float64(i)
 			ok := true
