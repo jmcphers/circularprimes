@@ -49,24 +49,28 @@ func main() {
 
 			// check all its rotations (1 rotation for 2-digit numbers,
 			// 2 rotations for 3-digit numbers, etc.)
-			for j := 0; j < int(math.Floor(math.Log10(float64(i)))); j++ {
+			var rotations = int(math.Floor(math.Log10(float64(i))))
+			var primerotations = 0
+			for j := 0; j < rotations; j++ {
 				candidate = rotate(candidate)
 				if (candidate < num) && !primes[int(candidate)] {
 					// this rotation is not prime
 					ok = false
 					break
-				} else if candidate < num {
+				} else if candidate < num && candidate != float64(i) {
 					// this rotation is prime, so mark the prime as visited
 					primes[int(candidate)] = false
-					desc += ", "
-					desc += strconv.FormatInt(int64(candidate), 10)
+					desc += ", " + strconv.FormatInt(int64(candidate), 10)
+					primerotations++
 				}
 			}
 
 			// if all rotation were prime, output the number
 			if ok {
 				println(desc)
-				circularprimes++
+
+				// count the number and all its rotations as circular primes
+				circularprimes += (1 + primerotations)
 			}
 		}
 	}
